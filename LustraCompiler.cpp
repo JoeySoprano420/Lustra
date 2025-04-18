@@ -2,6 +2,76 @@
 // Parses Lustra syntax and generates executable C++ code
 
 #include <iostream>
+#include <vector>
+#include <string>
+
+// Structure to hold error details
+struct Error {
+    std::string message;
+    bool resolved;
+};
+
+// Class to manage the DRD error-handling process
+class ErrorHandler {
+private:
+    std::vector<Error> errorQueue;
+
+public:
+    // Method to defer errors until the end
+    void deferError(const std::string& msg) {
+        errorQueue.push_back({msg, false});
+    }
+
+    // Method to resolve errors (simulate resolving dependencies)
+    void resolveErrors() {
+        for (auto& err : errorQueue) {
+            if (err.message.find("missing dependency") != std::string::npos) {
+                err.resolved = true;
+                std::cout << "[Resolved] " << err.message << "\n";
+            }
+        }
+    }
+
+    // Method to delete unresolved errors at the end
+    void deleteUnresolvedErrors() {
+        errorQueue.erase(
+            std::remove_if(errorQueue.begin(), errorQueue.end(),
+                           [](const Error& err) { return !err.resolved; }),
+            errorQueue.end()
+        );
+    }
+
+    // Display remaining errors after processing
+    void displayErrors() const {
+        std::cout << "\nRemaining Errors:\n";
+        for (const auto& err : errorQueue) {
+            std::cout << "- " << err.message << "\n";
+        }
+    }
+};
+
+int main() {
+    ErrorHandler handler;
+
+    // Deferring errors
+    handler.deferError("File not found");
+    handler.deferError("Missing dependency: OpenGL");
+    handler.deferError("Memory allocation error");
+
+    // Attempt to resolve errors
+    handler.resolveErrors();
+
+    // Deleting unresolved errors
+    handler.deleteUnresolvedErrors();
+
+    // Display remaining errors
+    handler.displayErrors();
+
+    return 0;
+}
+
+
+#include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
