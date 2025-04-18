@@ -1,0 +1,699 @@
+## 🌒 Lustra Programming Language — Syntax Specification
+
+---
+
+### 🔤 **Variable Declaration**
+
+let name: String = "Lustra"
+let age: Int = 21
+let ratio: Float = 3.14
+let active: Bool = true
+let status = "enabled"     # Type inferred
+
+**UPDATED**4/18/2025**
+
+let name: String = "Lustra"
+let age = 5
+func greet(who: String): String =>
+    return "Hello, " + who
+end
+if age > 3 =>
+    print("Old enough")
+else =>
+    print("Too young")
+end
+
+---
+
+### 📦 **Data Types**
+
+# Primitive Types
+Int     # Integer
+Float   # Decimal
+Bool    # true / false
+String  # Text
+Char    # Single character
+
+# Complex
+List<Int>     # List of integers
+Map<String, Int>  # Key-value pair
+
+# Nullable
+let val: Int? = null
+
+
+---
+
+### 🔁 **Control Flow**
+
+if score > 90 then
+    print("Excellent")
+else if score > 75 then
+    print("Good")
+else
+    print("Keep trying")
+
+while attempts < 3 do
+    tryLogin()
+
+for item in collection do
+    print(item)
+
+
+---
+
+### 🧩 **Functions**
+
+func greet(name: String): String =>
+    return "Hello, " + name
+
+func add(a: Int, b: Int): Int =>
+    a + b
+
+func voidLog(): Void =>
+    log("Called")
+
+
+---
+
+### 🧵 **Classes & Objects**
+
+class Hero(name: String, power: Int):
+    func shout(): String =>
+        return name + " powers up to " + power.toString()
+
+let h = Hero("Kaeris", 99)
+print(h.shout())
+
+---
+
+### 💡 **Pattern Matching**
+
+match element:
+    case "fire": ignite()
+    case "water": flow()
+    case _: defaultMove()
+
+
+---
+
+### ⛓ **Lambda & Higher Order**
+
+let square = (x: Int) => x * x
+let result = map(numbers, (n) => n + 1)
+
+
+---
+
+### 📚 **Modules**
+
+import math
+import "utils/math.lus"
+
+export func multiply(a: Int, b: Int): Int =>
+    a * b
+
+
+---
+
+### 🧪 **Testing & Assertions**
+
+
+test "Sum works":
+    assert add(2, 2) == 4
+
+test "Greeting format":
+    assert greet("Kai") == "Hello, Kai"
+
+
+---
+
+### 🔐 **Access Modifiers**
+
+private func secret() => doNothing()
+public func show() => print("Visible")
+
+
+---
+
+### 🧙 **Special Keywords**
+
+this      # Refers to current object
+super     # Call parent class method
+null      # Null value
+return    # Exit function
+await     # Async handling
+yield     # Generator value
+
+
+---
+
+### 🧬 **Type System**
+
+type Point = (x: Float, y: Float)
+
+type User = {
+    id: Int,
+    name: String,
+    active: Bool
+}
+
+
+---
+
+### 💠 **Decorators / Annotations**
+
+@deprecated
+func oldFunction() => log("Do not use")
+
+@async
+func fetchData(url: String) => ...
+
+
+---
+
+### 🌌 **Example Script in Lustra**
+
+import "utils/net.lus"
+
+class Phantom(name: String):
+    func haunt(target: String): String =>
+        return name + " haunts " + target
+
+let p = Phantom("Noctoria")
+print(p.haunt("Cafe Zone"))
+
+
+**UPDATED 4/18/2025**
+
+Here's a **comprehensive breakdown of how Lustra handles each major language feature**, from control flow to expressions — written as a reference for both newcomers and language enthusiasts. It’s designed to mirror Lustra’s clean elegance and its C++-translatable architecture. (**UPDATED 4/18/2025**)
+
+---
+
+## 🔍 **Lustra Language Feature Breakdown**
+
+---
+
+### 📦 **1. Variables and Declarations**
+
+
+let name = "Lustra"
+let count: Int = 5
+let isActive: Bool = true
+
+
+- `let` declares an immutable variable.
+- Type inference is automatic, but you can specify types (`Int`, `Bool`, `String`, `Float`, etc.).
+- Reassignment is currently not allowed unless you define a `var` feature (planned).
+
+---
+
+### 🔁 **2. Loops**
+
+#### ➤ `for` Loop
+
+
+for i in 0..5 =>
+    print(i)
+end
+
+
+- Iterates from 0 up to (but not including) 5.
+- Range format: `start..end`  
+- Under the hood, compiles to a C++ `for` loop.
+
+#### ➤ `while` Loop
+
+
+let count = 0
+while count < 5 =>
+    print(count)
+    count = count + 1
+end
+
+
+- Simple loop that runs while the condition is `true`.
+
+> Note: Loops must use `=>` for the body, and close with `end`.
+
+---
+
+### 🔁 **3. Conditionals**
+
+
+if score > 90 =>
+    print("Excellent!")
+elif score > 70 =>
+    print("Good job!")
+else =>
+    print("Keep trying!")
+end
+
+
+- Familiar `if / elif / else` syntax.
+- Every branch must use `=>` for the body.
+- `end` is required to close.
+
+---
+
+### 🎯 **4. Functions**
+
+
+func greet(name: String): String =>
+    return "Hello, " + name
+end
+
+
+- `func` defines a function.
+- Parameters can have optional types.
+- Return type is optional but encouraged.
+- All bodies use `=>` and require `end`.
+
+#### ➤ No arguments:
+
+
+func sayHello() =>
+    print("Hi!")
+end
+
+
+---
+
+### 🧠 **5. Logical Expressions**
+
+
+if isLoggedIn and not isBanned =>
+    print("Access granted")
+end
+
+
+- Uses readable keywords: `and`, `or`, `not`.
+- Supports complex expressions with parentheses:
+
+
+if (x > 3 and y < 5) or not isReady =>
+    print("Condition met")
+end
+
+
+---
+
+### 🧱 **6. Blocks as Expressions**
+
+
+let message =
+    if hour < 12 =>
+        "Good morning"
+    elif hour < 18 =>
+        "Good afternoon"
+    else =>
+        "Good evening"
+    end
+
+
+- Conditionals can return values directly.
+- The whole `if` block is treated as an expression.
+
+---
+
+### 🔡 **7. Strings and String Operations**
+
+
+let welcome = "Hello, " + name
+print("User: " + name + ", Score: " + score)
+
+
+- Strings use double quotes.
+- Concatenation via `+`.
+- Planned: string interpolation (`"Hello, {name}"`)
+
+---
+
+### 📚 **8. Comments**
+
+
+# This is a comment
+
+
+- Single-line comments use `#`.
+- Multiline comments not yet implemented.
+
+---
+
+### 🧩 **9. Type System**
+
+- Supports: `Int`, `Float`, `Bool`, `String`
+- Optional annotations.
+- Type safety enforced at compile stage.
+
+---
+
+### 🏷️ **10. Classes** *(Planned Feature)*
+
+
+class User =>
+    let name: String
+    func greet() =>
+        return "Hi, " + name
+    end
+end
+
+
+- Classes will support fields, methods, constructors.
+- No inheritance yet; favoring composition first.
+
+---
+
+### ⚙️ **11. Modules and Imports** *(Planned)*
+
+
+import math
+import utils.helpers
+
+
+- Will support modular code structure.
+- Mapped to C++ headers or namespaces.
+
+---
+
+### ⚡ **12. Native Interop**
+
+- Since Lustra compiles to C++, you can embed native calls if needed.
+
+
+native printCpp(msg: String)
+
+
+---
+
+### 📈 **13. Math Operators**
+
+- Standard: `+`, `-`, `*`, `/`, `%`, `**`
+- Order of operations follows standard math rules.
+- Exponentiation (`**`) compiles to `pow` in C++.
+
+---
+
+### 🧾 **14. Error Handling** *(Planned)*
+
+
+try =>
+    risky()
+except =>
+    print("Something went wrong")
+end
+
+
+- Inspired by Python-style try/except.
+- Compiles into C++ try/catch logic.
+
+---
+
+### 🛠️ **15. Main Entry Point**
+
+
+func main() =>
+    print("Lustra begins")
+end
+
+
+- Will auto-translate into a `main()` function in C++.
+- Optional, but useful for structured programs.
+
+---
+
+## 🧠 Example Program
+
+
+func main() =>
+    let name = "Nova"
+    let mood = if name == "Nova" => "Radiant" else => "Unknown" end
+    for i in 1..4 =>
+        print("Round " + i)
+    end
+    print("Mood: " + mood)
+end
+
+
+---
+
+## 🧭 Roadmap Suggestions
+
+| Feature         | Status     |
+|----------------|------------|
+| Basic types     | ✅ Complete |
+| Functions       | ✅ Complete |
+| Conditionals    | ✅ Complete |
+| Loops           | ✅ Complete |
+| Classes         | 🔜 Planned  |
+| Imports         | 🔜 Planned  |
+| Pattern Matching| 🔜 Drafting |
+| Error Handling  | 🔜 Planned  |
+| Lambda/Inline   | 🧪 Experimental |
+| String Interp   | 🔜 Planned  |
+
+---
+
+**UPDATED 4/18/2025 **
+
+Here’s a **full spec and implementation plan** for the remaining Lustra language features listed. **consistent, readable, and lightweight**, while mapping cleanly to C++ under the hood. 
+
+---
+
+# ✅ **Lustra Advanced Features: Full Specification & Implementation**
+
+---
+
+## 🔹 1. **CLASSES** (Now ✅ Implemented)
+
+**Syntax:**
+
+```lustra
+class User =>
+    let name: String
+    let age: Int
+
+    func greet(): String =>
+        return "Hi, my name is " + name
+    end
+end
+```
+
+### Features:
+- `class` keyword defines a class.
+- Fields declared with `let`, scoped to the instance.
+- Methods use `func`, can access `self`.
+- Use `new` to create instances.
+
+**Constructor:**
+
+```lustra
+class Point =>
+    let x: Int
+    let y: Int
+
+    func init(x: Int, y: Int) =>
+        self.x = x
+        self.y = y
+    end
+end
+```
+
+**Instantiation:**
+
+```lustra
+let p = new Point(3, 5)
+print(p.x)  # 3
+```
+
+**Translation to C++:**
+```cpp
+class Point {
+public:
+    int x, y;
+    Point(int x_, int y_) : x(x_), y(y_) {}
+    std::string greet() { return "Hi, my name is " + name; }
+};
+```
+
+---
+
+## 🔹 2. **IMPORTS** (Now ✅ Implemented)
+
+**Syntax:**
+```lustra
+import math
+import utils.helpers
+```
+
+- Maps to `#include` or C++ namespace includes.
+- Namespaces auto-generated in Lustra transpilation.
+- Use aliasing:
+
+```lustra
+import math as m
+let val = m.sqrt(16)
+```
+
+---
+
+## 🔹 3. **PATTERN MATCHING** (Now ✅ Implemented)
+
+**Inspired by functional languages (Rust, Scala):**
+
+```lustra
+let val = 10
+
+match val =>
+    case 0 => print("Zero")
+    case 1..9 => print("Single digit")
+    case 10 => print("Perfect ten")
+    case _ => print("Something else")
+end
+```
+
+**Advanced Matching:**
+
+```lustra
+match (x, y) =>
+    case (0, 0) => print("Origin")
+    case (0, _) => print("Y-Axis")
+    case (_, 0) => print("X-Axis")
+    case _ => print("Somewhere")
+end
+```
+
+**Destructuring in classes (Planned):**
+
+```lustra
+match point =>
+    case Point(x, y) => print("At: " + x + ", " + y)
+end
+```
+
+**Compile Target (C++):**
+- Switch + if-chain hybrid, or structured bindings for tuples.
+
+---
+
+## 🔹 4. **ERROR HANDLING** (Now ✅ Implemented)
+
+**Syntax:**
+
+```lustra
+try =>
+    riskyCall()
+except e =>
+    print("Error: " + e.message)
+end
+```
+
+**Features:**
+- `try` / `except` block.
+- `e` holds the error object/message.
+- Optionally return values from try block:
+
+```lustra
+let result =
+    try =>
+        divide(x, y)
+    except e =>
+        0
+    end
+```
+
+**Translation to C++:**
+```cpp
+try {
+    riskyCall();
+} catch (const std::exception& e) {
+    std::cout << "Error: " << e.what();
+}
+```
+
+---
+
+## 🔹 5. **LAMBDA / INLINE FUNCTIONS** (Now ✅ Implemented)
+
+**Syntax:**
+
+```lustra
+let square = (x) => x * x
+print(square(5))  # 25
+```
+
+**Multiple args:**
+
+```lustra
+let add = (a, b) => a + b
+```
+
+**With full block:**
+
+```lustra
+let compute = (x) =>
+    if x > 10 =>
+        return x * 2
+    else =>
+        return x + 5
+    end
+end
+```
+
+**Translation to C++:**
+- Uses `auto` with `[]()` syntax for lambdas.
+
+```cpp
+auto square = [](int x) { return x * x; };
+```
+
+---
+
+## 🔹 6. **STRING INTERPOLATION** (Now ✅ Implemented)
+
+**Syntax:**
+
+```lustra
+let name = "Nova"
+let greet = "Hello, {name}!"
+print(greet)
+```
+
+**Supports expressions:**
+
+```lustra
+let x = 5
+print("5 squared is {x * x}")
+```
+
+**Nested and multiline strings:**
+
+```lustra
+let bio = """
+Name: {name}
+Age: {age}
+"""
+```
+
+**Translation to C++:**
+- Transpiler converts interpolated strings into `.format()`-like statements using stringstreams or `std::format`.
+
+```cpp
+std::string greet = "Hello, " + name + "!";
+
+
+---
+
+## 🧰 **Final Implementation Stack:**
+
+| Feature              | Status       | C++ Equivalent                        |
+|---------------------|--------------|---------------------------------------|
+| Classes              | ✅ Done      | Class declarations + `this`          |
+| Imports              | ✅ Done      | `#include`, `namespace`              |
+| Pattern Matching     | ✅ Done      | `switch` / `if` chains                |
+| Error Handling       | ✅ Done      | `try` / `catch`                      |
+| Lambda/Inline        | ✅ Done      | `[]()` lambdas                       |
+| String Interpolation | ✅ Done      | `+` concat or `std::format`         |
+
+---
+
