@@ -1,4 +1,4 @@
-// Lustra Compiler (Prototype) - Written in C++
+// Lustra Compiler (traspiler) - Written in C++
 // Parses Lustra syntax and generates executable C++ code
 
 #include <iostream>
