@@ -57,7 +57,7 @@ Compiles to clean, ready-to-run C++ with no effort on your part.
 - 🚀 **Fast Execution** via native C++ backend  
 - ✍️ **Beautiful Syntax** that mirrors human intent  
 - 🌈 **Expandable** for teaching, scripting, prototyping, or even game design  
-- 🛠️ **Hackable and Open** – build your own extensions or DSLs  
+- 🛠️ **Customizable and Open** – build your own extensions or DSLs  
 
 ---
 
