@@ -10,6 +10,18 @@ let ratio: Float = 3.14
 let active: Bool = true
 let status = "enabled"     # Type inferred
 
+**UPDATED**4/18/2025**
+
+let name: String = "Lustra"
+let age = 5
+func greet(who: String): String =>
+    return "Hello, " + who
+end
+if age > 3 =>
+    print("Old enough")
+else =>
+    print("Too young")
+end
 
 ---
 
